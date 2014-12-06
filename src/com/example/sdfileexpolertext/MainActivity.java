@@ -88,13 +88,15 @@ public class MainActivity extends ActionBarActivity {
 				{
 					File tmp[] = currentFiles[position].listFiles();
 					
-					if( tmp.length <= 0 || tmp == null ) return ;
-					
-					currentParentPath = currentFiles[position];
-					
-					currentFiles = tmp;
-					
-					updateFiles(currentFiles);
+					//这里犯2了，要先判断非空，在来判断是否为长度为0
+					if( tmp != null && tmp.length > 0  )
+					{
+						currentParentPath = currentFiles[position];
+						
+						currentFiles = tmp;
+						
+						updateFiles(currentFiles);
+					}
 				}
 			}
         	
@@ -103,7 +105,7 @@ public class MainActivity extends ActionBarActivity {
     
     private void updateFiles(File files[])
     {
-    	if( files.length <=0 || files == null ) return ;
+    	if( files == null || files.length <=0   ) return ;
     	
     	//List 嵌套 Map
     	List< Map<String, Object> > listItems = new ArrayList< Map<String, Object> >();
